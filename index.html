@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Document</title>
+</head>
+
+<body>
+  <h2>Formulario de Paciente - Clínica Oftalmológica</h2>
+  <form id="formularioOjos">
+
+    <label>Nombre y Apellido:</label>
+    <input type="text" name="nombre" required />
+
+    <label>DNI:</label>
+    <input type="number" name="dni" required />
+
+    <label>Ojo:</label>
+    <div class="radio-group">
+      <label><input type="radio" name="ojo" value="Izquierdo" required checked> Izquierdo</label>
+      <label><input type="radio" name="ojo" value="Derecho"> Derecho</label>
+      <label><input type="radio" name="ojo" value="Ambos"> Ambos</label>
+    </div>
+
+    <div id="campos-izquierdo">
+      <h3>Datos Ojo Izquierdo</h3>
+      <label>LIO (con coma):</label>
+      <input type="text" name="lio_izquierdo" pattern="^\d+([,]\d+)?$" placeholder="Ej: 21,5" required />
+
+      <label>Dilatación (con coma):</label>
+      <input type="text" name="dilatacion_izquierdo" pattern="^\d+([,]\d+)?$" placeholder="Ej: 5,2" required />
+
+      <label>Lente:</label>
+      <select name="lente_izquierdo">
+        <optgroup label="Premium">
+          <option id="premium" value="Full Range">Full Range</option>
+          <option id="premium" value="Vivity">Vivity</option>
+          <option id="premium" value="Panoptic">Panoptic</option>
+          <option id="premium" value="Lentes tóricas">Lentes tóricas</option>
+        </optgroup>
+        <optgroup id="g_media" label="Gama Media">
+          <option id="g_media" value="Clareon">Clareon</option>
+          <option id="g_media" value="Rayone">Rayone</option>
+          <option id="g_media" value="Hanita">Hanita </option>
+          <option id="g_media" value="Hanita_B">Hanita B</option>
+          <option id="g_media" value="IQ">IQ</option>
+        </optgroup>
+        <optgroup label="Gama Económica">
+          <option id="g_baja" value="AcryFold">AcryFold</option>
+        </optgroup>
+      </select>
+
+      <label>Marca:</label>
+      <input type="text" name="marca_izquierdo" />
+
+      <label>Tipo de Catarata:</label>
+      <select name="catarata_izquierdo">
+        <option value="">--</option>
+        <option id="dura" value="Dura (SCP3)">Dura (SCP3)</option>
+        <option id="dura" value="Dura (N3)">Dura (N3)</option>
+        <option id="dura" value="Dura (C3)">Dura (C3)</option>
+        <option id="media" value="Media-Normal (N2)">Media-Normal (N2)</option>
+        <option id="media" value="Media-Normal (C1)">Media-Normal (C1)</option>
+        <option id="media" value="Media-Normal (SCP2)">Media-Normal (SCP2)</option>
+        <option id="media" value="Media-Normal (SCP1)">Media-Normal (SCP1)</option>
+      </select>
+    </div>
+
+    <div id="campos-derecho" style="display: none;">
+      <h3>Datos Ojo Derecho</h3>
+      <label>LIO (con coma):</label>
+      <input type="text" name="lio_derecho" pattern="^\d+([,]\d+)?$" placeholder="Ej: 21,5" />
+
+      <label>Dilatación (con coma):</label>
+      <input type="text" name="dilatacion_derecho" pattern="^\d+([,]\d+)?$" placeholder="Ej: 5,2" />
+
+      <label>Lente:</label>
+      <select name="lente_derecho">
+        <optgroup label="Premium">
+          <option id="premium" value="Full Range">Full Range</option>
+          <option id="premium" value="Vivity">Vivity</option>
+          <option id="premium" value="Panoptic">Panoptic</option>
+          <option id="premium" value="Lentes tóricas">Lentes tóricas</option>
+        </optgroup>
+        <optgroup id="g_media" label="Gama Media">
+          <option id="g_media" value="Clareon">Clareon</option>
+          <option id="g_media" value="Rayone">Rayone</option>
+          <option id="g_media" value="Hanita">Hanita </option>
+          <option id="g_media" value="Hanita_B">Hanita B</option>
+          <option id="g_media" value="IQ">IQ</option>
+        </optgroup>
+        <optgroup label="Gama Económica">
+          <option id="g_baja" value="AcryFold">AcryFold</option>
+        </optgroup>
+      </select>
+
+      <label>Marca:</label>
+      <input type="text" name="marca_derecho" />
+
+      <label>Tipo de Catarata:</label>
+      <select name="catarata_derecho">
+        <option value="">--</option>
+        <option id="dura" value="Dura (SCP3)">Dura (SCP3)</option>
+        <option id="dura" value="Dura (N3)">Dura (N3)</option>
+        <option id="dura" value="Dura (C3)">Dura (C3)</option>
+        <option id="media" value="Media-Normal (N2)">Media-Normal (N2)</option>
+        <option id="media" value="Media-Normal (C1)">Media-Normal (C1)</option>
+        <option id="media" value="Media-Normal (SCP2)">Media-Normal (SCP2)</option>
+        <option id="media" value="Media-Normal (SCP1)">Media-Normal (SCP1)</option>
+      </select>
+    </div>
+
+    <label>Derivador:</label>
+    <input type="text" name="derivador" />
+
+    <label>Cirujano:</label>
+    <input type="text" name="cirujano" />
+
+    <label>Obra Social:</label>
+    <input type="text" name="obra_social" />
+
+    <label>Código:</label>
+    <input type="number" name="codigo" />
+
+    <label>Afecciones Oculares Adicionales:</label>
+    <div class="radio-group">
+      <label><input type="radio" name="afecciones" value="Presente" required> Si</label>
+      <label><input type="radio" name="afecciones" value="Ninguna"> No</label>
+    </div>
+
+    <button type="submit">Agregar a la lista</button>
+    <div class="success" id="mensaje"></div>
+  </form>
+
+  <table id="tablaPacientes">
+    <caption>Lista de Pacientes Ingresados</caption>
+    <thead>
+      <tr>
+        <th rowspan="2">Nombre</th>
+        <th rowspan="2">DNI</th>
+        <th colspan="5">Ojo Izquierdo</th>
+        <th colspan="5">Ojo Derecho</th>
+        <th rowspan="2">Derivador</th>
+        <th rowspan="2">Cirujano</th>
+        <th rowspan="2">Obra Social</th>
+        <th rowspan="2">Código</th>
+        <th rowspan="2">Afecciones Oculares</th>
+      </tr>
+      <tr>
+        <th>LIO</th>
+        <th>Dilatación</th>
+        <th>Lente</th>
+        <th>Marca</th>
+        <th>Catarata</th>
+        <th>LIO</th>
+        <th>Dilatación</th>
+        <th>Lente</th>
+        <th>Marca</th>
+        <th>Catarata</th>
+        <th>Subir / Bajar orden</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <button id="editarBtn" type="button">Editar fila</button>
+  <button id="borrarBtn" type="button">Borrar fila</button>
+  <button id="ordenarBtn" type="button">Ordenar lista</button>
+  <button id="reiniciarBtn" type="button">Reiniciar Programa</button>
+   <button id="descargarPDFBtn">Descargar PDF</button>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="script.js"></script>
+
+</body>
+
+</html>
