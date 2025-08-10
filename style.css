@@ -7,17 +7,21 @@ body {
 }
 
 .container {
-    width: 650px;
+    max-width: 650px;
+    /* en lugar de width fija */
+    width: 100%;
     margin: 0 auto;
     background-color: #f0f0f0;
     border: 2px solid #999;
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
     padding: 15px 20px;
     border-radius: 2px;
+    box-sizing: border-box;
+    /* asegura que el padding no rompa el ancho */
 }
 
 h2 {
-    font-size: 14px;
+    font-size: 1rem;
     text-align: center;
     margin-bottom: 10px;
     background-color: #d6d6d6;
@@ -31,7 +35,7 @@ label {
     font-weight: normal;
     margin-top: 8px;
     margin-bottom: 2px;
-    font-size: 12px;
+    font-size: 0.9rem;
 }
 
 input,
@@ -39,10 +43,11 @@ select,
 textarea {
     width: 100%;
     padding: 4px 6px;
-    font-size: 12px;
+    font-size: 0.9rem;
     border: 1px solid #999;
     background-color: #fff;
     border-radius: 2px;
+    box-sizing: border-box;
 }
 
 textarea {
@@ -52,6 +57,7 @@ textarea {
 
 .radio-group {
     display: flex;
+    flex-wrap: wrap;
     gap: 12px;
     margin: 6px 0;
 }
@@ -59,15 +65,19 @@ textarea {
 .form-row {
     display: flex;
     gap: 10px;
+    flex-wrap: wrap;
+    /* ahora se apilan si no hay espacio */
 }
 
 .form-row>div {
     flex: 1;
+    min-width: 150px;
+    /* evita que se achique demasiado */
 }
 
 button {
     padding: 6px 10px;
-    font-size: 12px;
+    font-size: 0.9rem;
     background-color: #e0e0e0;
     border: 1px solid #888;
     color: #000;
@@ -79,15 +89,12 @@ button:hover {
     background-color: #d0d0d0;
 }
 
-#ordenarBtn{
+#ordenarBtn {
     background-color: #60e280;
 }
-/*#ordenarBtn:hover {
-    background-color: #c0c0c0;
-} */
 
 .success {
-    font-size: 12px;
+    font-size: 0.9rem;
     text-align: center;
     color: green;
     margin-top: 5px;
@@ -97,7 +104,7 @@ table {
     width: 100%;
     margin-top: 20px;
     border-collapse: collapse;
-    font-size: 11px;
+    font-size: 0.85rem;
 }
 
 th,
@@ -114,14 +121,71 @@ th {
 caption {
     caption-side: top;
     font-weight: bold;
-    font-size: 13px;
+    font-size: 0.95rem;
     color: #222;
     margin-bottom: 5px;
 }
+
 .seleccionada {
     background-color: #cde5ff;
 }
-#reiniciarBtn{
-    background-color: #e26060;
 
+#reiniciarBtn {
+    background-color: #e26060;
+}
+
+.mover-arriba,
+.mover-abajo {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #3498db;
+    padding: 0 5px;
+    line-height: 1;
+}
+
+.mover-arriba:hover,
+.mover-abajo:hover {
+    color: #2980b9;
+}
+
+tr:last-child .mover-abajo {
+    visibility: hidden;
+}
+
+tr:first-child .mover-arriba {
+    visibility: hidden;
+}
+
+/* 📱 Ajustes para móviles */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+        font-size: 12px;
+    }
+
+    h2 {
+        font-size: 0.9rem;
+    }
+
+    .form-row {
+        flex-direction: column;
+    }
+
+    table {
+        font-size: 0.8rem;
+    }
+}
+
+/* 📱 Ajustes para pantallas muy pequeñas */
+@media (max-width: 480px) {
+    .container {
+        padding: 10px;
+    }
+
+    button {
+        width: 100%;
+        /* botones a ancho completo */
+    }
 }

@@ -8,6 +8,16 @@ const camposDerechoDiv = document.getElementById("campos-derecho");
 const camposIzquierdoDiv = document.getElementById("campos-izquierdo");
 let filaSeleccionada = null;
 
+
+
+const botonSubir = document.createElement("button");
+botonSubir.textContent = "▲";
+botonSubir.classList.add("mover-arriba"); 
+
+const botonBajar = document.createElement("button");
+botonBajar.textContent = "▼";
+botonBajar.classList.add("mover-abajo"); 
+
 // Crear botón para guardar cambios
 const guardarBtn = document.createElement("button");
 guardarBtn.type = "button";
@@ -147,7 +157,7 @@ const agregarFila = (datos) => {
     tablaBody.appendChild(fila);
 };
 
-// === NUEVO: Función para mover una fila ===
+// === FUNCION PARA MOVER FILAS ARRIBA - ABAJO ===
 const moverFila = (fila, direccion) => {
     const filaVecina = direccion === -1 ? fila.previousElementSibling : fila.nextElementSibling;
     if (filaVecina) {
@@ -362,32 +372,62 @@ reiniciarBtn.addEventListener("click", function() {
 
 
 // 
-// Botón para descargar el PDF
 const descargarPDFBtn = document.getElementById("descargarPDFBtn");
 
 descargarPDFBtn.addEventListener("click", () => {
-    // Selecciona la tabla completa
-    const tabla = document.getElementById("tablaPacientes");
+    // 1. Clonar la tabla para no modificar la original en la página
+    const tablaOriginal = document.getElementById("tablaPacientes");
+    const tablaClonada = tablaOriginal.cloneNode(true);
 
-    // Usa html2canvas para renderizar la tabla como un canvas
-    html2canvas(tabla, { scale: 2 }).then(canvas => {
-        // Inicializa jsPDF
+    // 2. Eliminar la última columna (thead y tbody) del clon
+    // Eliminar la última celda de cada fila del cuerpo de la tabla
+    const filasClonadas = tablaClonada.querySelectorAll("tbody tr");
+    filasClonadas.forEach(fila => {
+        const ultimaCelda = fila.lastElementChild;
+        if (ultimaCelda) {
+            ultimaCelda.remove();
+        }
+    });
+
+    // Eliminar la última celda del encabezado (thead)
+    const encabezadoClonado = tablaClonada.querySelector("thead tr:last-child");
+    if (encabezadoClonado) {
+        const ultimaCeldaEncabezado = encabezadoClonado.lastElementChild;
+        if (ultimaCeldaEncabezado) {
+            ultimaCeldaEncabezado.remove();
+        }
+    }
+
+    // Opcional: ajustar el colspan del encabezado principal si es necesario
+    const thPrincipal = tablaClonada.querySelector("thead tr:first-child th:last-child");
+    if (thPrincipal && thPrincipal.getAttribute('colspan')) {
+        const colspan = parseInt(thPrincipal.getAttribute('colspan'), 10);
+        thPrincipal.setAttribute('colspan', colspan - 1);
+    }
+    
+    // 3. Crear un contenedor temporal y añadir la tabla clonada
+    const tempDiv = document.createElement('div');
+    tempDiv.appendChild(tablaClonada);
+    document.body.appendChild(tempDiv);
+    
+    // 4. Usar html2canvas con la tabla clonada
+    html2canvas(tablaClonada, { scale: 2 }).then(canvas => {
+        // 5. Eliminar el contenedor temporal del DOM
+        tempDiv.remove();
+
         const { jsPDF } = window.jspdf;
-        const pdf = new jsPDF('l', 'mm', 'a4'); // 'l' para formato horizontal
+        const pdf = new jsPDF('l', 'mm', 'a4');
 
-        // Obtiene las dimensiones del canvas y la página
         const imgData = canvas.toDataURL('image/png');
-        const imgWidth = 297; // Ancho de la página A4 en mm (horizontal)
-        const pageHeight = 210; // Altura de la página A4 en mm (horizontal)
+        const imgWidth = 297;
+        const pageHeight = 210;
         const imgHeight = (canvas.height * imgWidth) / canvas.width;
         let heightLeft = imgHeight;
         let position = 0;
 
-        // Añade la imagen al PDF
         pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
         heightLeft -= pageHeight;
 
-        // Si la tabla es muy larga, añade páginas adicionales
         while (heightLeft >= 0) {
             position = heightLeft - imgHeight;
             pdf.addPage();
@@ -395,7 +435,6 @@ descargarPDFBtn.addEventListener("click", () => {
             heightLeft -= pageHeight;
         }
 
-        // Guarda el PDF con un nombre
         pdf.save('lista_pacientes.pdf');
     });
 });
